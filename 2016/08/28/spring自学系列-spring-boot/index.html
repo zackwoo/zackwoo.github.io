@@ -15,7 +15,7 @@
 <meta property="og:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
 开发环境IDE : IntelliJ IDEA 2016.2.1(64)JAVA : 1.8.0_101
 功能元属性@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan在引用程序main">
-<meta property="og:updated_time" content="2016-08-28T08:36:27.213Z">
+<meta property="og:updated_time" content="2016-08-31T08:19:04.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring自学系列 - spring boot">
 <meta name="twitter:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
@@ -97,10 +97,11 @@
 <hr>
 <h2 id="log-日志"><a href="#log-日志" class="headerlink" title="log 日志"></a>log 日志</h2><p>日志文本输出<br>配置 <strong>application.properties</strong> 添加 <strong>logging.file</strong> or <strong>logging.path</strong><br>日志文件每10M会自动分割<br><strong>application.properties</strong>日志级别设定属性[logging.level.包名]<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">logging.level.root=WARN</div><div class="line">logging.level.org.springframework.web=DEBUG</div><div class="line">logging.level.org.hibernate=ERROR</div></pre></td></tr></table></figure></p>
 <p>在代码中使用log<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Define the logger object for this class</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</div><div class="line">log.info(<span class="string">"程序开始执行咯..."</span>);</div></pre></td></tr></table></figure></p>
+<p>日志format输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">log.info(<span class="string">"sayHello &#123;&#125; &#123;&#125; "</span>,参数<span class="number">1</span>，参数<span class="number">2</span>);</div></pre></td></tr></table></figure></p>
 <hr>
 <h2 id="程序开始执行时运行初始化代码"><a href="#程序开始执行时运行初始化代码" class="headerlink" title="程序开始执行时运行初始化代码"></a>程序开始执行时运行初始化代码</h2><p>可以继承 <strong>ApplicationRunner</strong> or <strong>CommandLineRunner</strong><br>实现run方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppStartCmdTest</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</div><div class="line">    <span class="comment">// Define the logger object for this class</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String... strings)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        log.info(<span class="string">"程序开始执行咯..."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <hr>
-<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2>
+<h2 id="Spring-Web-MVC-framework"><a href="#Spring-Web-MVC-framework" class="headerlink" title="Spring Web MVC framework"></a>Spring Web MVC framework</h2><h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2>
       
     </div>
     <footer class="article-footer">
