@@ -15,7 +15,7 @@
 <meta property="og:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
 开发环境IDE : IntelliJ IDEA 2016.2.1(64)JAVA : 1.8.0_101
 功能元属性@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan在引用程序main">
-<meta property="og:updated_time" content="2016-09-01T06:23:53.779Z">
+<meta property="og:updated_time" content="2016-09-01T07:57:29.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring自学系列 - spring boot">
 <meta name="twitter:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
@@ -128,7 +128,10 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/js/lib/jquery-ceb45a47cf9c4a5f00a0daf9fd962202.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2>
+<h3 id="错误页面"><a href="#错误页面" class="headerlink" title="错误页面"></a>错误页面</h3><p>spring 默认提供一个叫<em>Whitelabel</em>的错误显示页面，用于显示错误信息</p>
+<h4 id="自定义错误页面"><a href="#自定义错误页面" class="headerlink" title="自定义错误页面"></a>自定义错误页面</h4><p>用户可以自定义静态或模板错误显示页面，根据http的状态码spring会自动从error文件夹内获取对应的页面显示，也可以使用通配符指定通用模板<br>比如自定义404页面，结构如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">src/</div><div class="line"> +- main/</div><div class="line">     +- java/</div><div class="line">     |   + &lt;source code&gt;</div><div class="line">     +- resources/</div><div class="line">         +- public/</div><div class="line">             +- error/</div><div class="line">             |   +- 404.html</div><div class="line">             +- &lt;other public assets&gt;</div></pre></td></tr></table></figure></p>
+<p>匹配所有5xx错误类型页面，结构如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">src/</div><div class="line"> +- main/</div><div class="line">     +- java/</div><div class="line">     |   + &lt;source code&gt;</div><div class="line">     +- resources/</div><div class="line">         +- templates/</div><div class="line">             +- error/</div><div class="line">             |   +- 5xx.ftl</div><div class="line">             +- &lt;other templates&gt;</div></pre></td></tr></table></figure></p>
+
       
     </div>
     <footer class="article-footer">
