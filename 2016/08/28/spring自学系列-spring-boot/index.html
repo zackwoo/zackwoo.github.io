@@ -15,7 +15,7 @@
 <meta property="og:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
 开发环境IDE : IntelliJ IDEA 2016.2.1(64)JAVA : 1.8.0_101
 功能元属性@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan在引用程序main">
-<meta property="og:updated_time" content="2016-09-01T05:19:58.153Z">
+<meta property="og:updated_time" content="2016-09-01T05:22:34.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring自学系列 - spring boot">
 <meta name="twitter:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
@@ -95,6 +95,7 @@
 <h1 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h1><p>IDE : IntelliJ IDEA 2016.2.1(64)<br>JAVA : 1.8.0_101</p>
 <h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><h2 id="元属性"><a href="#元属性" class="headerlink" title="元属性"></a>元属性</h2><p>@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan<br>在引用程序main方法标注@SpringBootApplication 等同于同时标注了 @Configuration @EnableAutoConfiguration @ComponentScan         </p>
 <hr>
+<a id="more"></a>
 <h2 id="log-日志"><a href="#log-日志" class="headerlink" title="log 日志"></a>log 日志</h2><p>日志文本输出<br>配置 <strong>application.properties</strong> 添加 <strong>logging.file</strong> or <strong>logging.path</strong><br>日志文件每10M会自动分割<br><strong>application.properties</strong>日志级别设定属性[logging.level.包名]<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">logging.level.root=WARN</div><div class="line">logging.level.org.springframework.web=DEBUG</div><div class="line">logging.level.org.hibernate=ERROR</div></pre></td></tr></table></figure></p>
 <p>在代码中使用log<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Define the logger object for this class</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</div><div class="line">log.info(<span class="string">"程序开始执行咯..."</span>);</div></pre></td></tr></table></figure></p>
 <p>日志format输出<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">log.info(<span class="string">"sayHello &#123;&#125; &#123;&#125; "</span>,参数<span class="number">1</span>，参数<span class="number">2</span>);</div></pre></td></tr></table></figure></p>
