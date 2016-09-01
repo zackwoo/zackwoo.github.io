@@ -15,7 +15,7 @@
 <meta property="og:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
 开发环境IDE : IntelliJ IDEA 2016.2.1(64)JAVA : 1.8.0_101
 功能元属性@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan在引用程序main">
-<meta property="og:updated_time" content="2016-09-01T05:22:34.738Z">
+<meta property="og:updated_time" content="2016-09-01T06:23:53.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring自学系列 - spring boot">
 <meta name="twitter:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
@@ -113,7 +113,22 @@
 <li>/resources </li>
 <li>/META-INF/resources<br>使用了spring mvc的<strong>ResourceHttpRequestHandler</strong>所以也可以在<strong>WebMvcConfigurerAdapter</strong>重写<strong>addResourceHandlers</strong>方法来自定义<br>spring mvc会默认寻找index.html作为起始页</li>
 </ol>
-<h4 id="静态资源版本管理"><a href="#静态资源版本管理" class="headerlink" title="静态资源版本管理"></a>静态资源版本管理</h4><h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2>
+<h4 id="静态资源版本管理"><a href="#静态资源版本管理" class="headerlink" title="静态资源版本管理"></a>静态资源版本管理</h4><p><strong>资源名-md5 方式</strong><br>spring 在资源文件后追加MD5值，文件改变后该值也会随之改变，以达到不被客户端浏览器缓存的目的。</p>
+<ol>
+<li><p>修改 application.properties 配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spring.resources.chain.strategy.content.enabled=true</div><div class="line">spring.resources.chain.strategy.content.paths=/**</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加配置类<strong>ControllerConfig</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerConfig</span> </span>&#123;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    ResourceUrlProvider resourceUrlProvider;</div><div class="line"></div><div class="line">    <span class="meta">@ModelAttribute</span>(<span class="string">"urls"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> ResourceUrlProvider <span class="title">urls</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.resourceUrlProvider;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>freemarker模板中使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"$&#123;urls.getForLookupPath('/js/lib/jquery.js')&#125;"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>页面源码输出的结果如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/js/lib/jquery-ceb45a47cf9c4a5f00a0daf9fd962202.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2>
       
     </div>
     <footer class="article-footer">
