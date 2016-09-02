@@ -15,7 +15,7 @@
 <meta property="og:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
 开发环境IDE : IntelliJ IDEA 2016.2.1(64)JAVA : 1.8.0_101
 功能元属性@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan在引用程序main">
-<meta property="og:updated_time" content="2016-09-01T09:04:34.865Z">
+<meta property="og:updated_time" content="2016-09-02T03:05:37.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring自学系列 - spring boot">
 <meta name="twitter:description" content="简介spring boot 大量简化了spring程序的简化配置，提供开箱即用的骨架程序
@@ -131,21 +131,32 @@
 <h3 id="错误页面"><a href="#错误页面" class="headerlink" title="错误页面"></a>错误页面</h3><p>spring 默认提供一个叫<em>Whitelabel</em>的错误显示页面，用于显示错误信息<br>application.properties配置中默认开启<em>Whitelabel</em><br>如果需要关闭配置如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server.error.whitelabel.enabled = false</div></pre></td></tr></table></figure></p>
 <h4 id="自定义错误页面"><a href="#自定义错误页面" class="headerlink" title="自定义错误页面"></a>自定义错误页面</h4><p>用户可以自定义静态或模板错误显示页面，根据http的状态码spring会自动从error文件夹内获取对应的页面显示，也可以使用通配符指定通用模板<br>比如自定义404页面，结构如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">src/</div><div class="line"> +- main/</div><div class="line">     +- java/</div><div class="line">     |   + &lt;source code&gt;</div><div class="line">     +- resources/</div><div class="line">         +- public/</div><div class="line">             +- error/</div><div class="line">             |   +- 404.html</div><div class="line">             +- &lt;other public assets&gt;</div></pre></td></tr></table></figure></p>
 <p>匹配所有5xx错误类型页面，结构如下<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">src/</div><div class="line"> +- main/</div><div class="line">     +- java/</div><div class="line">     |   + &lt;source code&gt;</div><div class="line">     +- resources/</div><div class="line">         +- templates/</div><div class="line">             +- error/</div><div class="line">             |   +- 5xx.ftl</div><div class="line">             +- &lt;other templates&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="Controller级异常处理"><a href="#Controller级异常处理" class="headerlink" title="Controller级异常处理"></a>Controller级异常处理</h4><h5 id="Using-ExceptionHandler"><a href="#Using-ExceptionHandler" class="headerlink" title="Using @ExceptionHandler"></a>Using @ExceptionHandler</h5><p>在controller类内部使用 <strong>@ExceptionHandler</strong> 可对controller内的异常做捕获处理<br>eg:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErrorTestController</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(value=<span class="string">"/exception"</span>)</div><div class="line">    <span class="function">String <span class="title">sayHello</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"程序运行错误了!!!"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// Total control - setup a model and return the view name yourself. Or</span></div><div class="line">    <span class="comment">// consider subclassing ExceptionHandlerExceptionResolver (see below).</span></div><div class="line">    <span class="meta">@ExceptionHandler</span>(Exception.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleError</span><span class="params">(HttpServletRequest req, Exception ex)</span> </span>&#123;</div><div class="line">        log.error(<span class="string">"Request: "</span> + req.getRequestURL() + <span class="string">" raised "</span> + ex);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, ex);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, <span class="string">"controller"</span>);</div><div class="line">        mav.setViewName(<span class="string">"error/error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Controller级异常处理"><a href="#Controller级异常处理" class="headerlink" title="Controller级异常处理"></a>Controller级异常处理</h4><h5 id="Using-ExceptionHandler"><a href="#Using-ExceptionHandler" class="headerlink" title="Using @ExceptionHandler"></a>Using @ExceptionHandler</h5><p>在controller类内部使用 <strong>@ExceptionHandler</strong> 可对controller内的异常做捕获处理<br>eg:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErrorTestController</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(value=<span class="string">"/exception"</span>)</div><div class="line">    <span class="function">String <span class="title">sayHello</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"程序运行错误了!!!"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// Total control - setup a model and return the view name yourself. Or</span></div><div class="line">    <span class="comment">// consider subclassing ExceptionHandlerExceptionResolver (see below).</span></div><div class="line">    <span class="meta">@ExceptionHandler</span>(Exception.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleError</span><span class="params">(HttpServletRequest req, Exception ex)</span> </span>&#123;</div><div class="line">        log.error(<span class="string">"Request: "</span> + req.getRequestURL() + <span class="string">" raised "</span> + ex);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, ex);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, <span class="string">"controller"</span>);</div><div class="line">        mav.setViewName(<span class="string">"error/error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="Using-ControllerAdvice-做全局异常处理"><a href="#Using-ControllerAdvice-做全局异常处理" class="headerlink" title="Using @ControllerAdvice 做全局异常处理"></a>Using @ControllerAdvice 做全局异常处理</h4><p>使用 <strong>@ControllerAdvice</strong>类可配置处理全局异常信息<br>eg：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerConfig</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(<span class="keyword">this</span>.getClass());</div><div class="line"></div><div class="line">    <span class="comment">// Total control - setup a model and return the view name yourself. Or</span></div><div class="line">    <span class="comment">// consider subclassing ExceptionHandlerExceptionResolver (see below).</span></div><div class="line">    <span class="meta">@ExceptionHandler</span>(Exception.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleError</span><span class="params">(HttpServletRequest req, Exception ex)</span> </span>&#123;</div><div class="line">        log.error(<span class="string">"Request: "</span> + req.getRequestURL() + <span class="string">" raised "</span> + ex);</div><div class="line">        ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">        mav.addObject(<span class="string">"exception"</span>, ex);</div><div class="line">        mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">        mav.setViewName(<span class="string">"error/error"</span>);</div><div class="line">        <span class="keyword">return</span> mav;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<hr>
+<p>123</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/28/spring自学系列-spring-boot/" data-id="ciselonfs00042svnvjsh5016" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/28/spring自学系列-spring-boot/" data-id="cisl6qpdt0001qkvnsvewcpkb" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/09/01/spring自学系列-spring与mybatis整合/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          spring自学系列 spring与mybatis整合
+        
+      </div>
+    </a>
   
   
     <a href="/2016/08/25/hexo使用方式/" id="article-nav-older" class="article-nav-link-wrap">
@@ -169,7 +180,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/烘焙/">烘焙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件-工具/">软件&工具</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-mybatis/">spring mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/烘焙/">烘焙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件-工具/">软件&工具</a></li></ul>
     </div>
   </div>
 
@@ -179,7 +190,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/烘焙/" style="font-size: 10px;">烘焙</a> <a href="/tags/软件-工具/" style="font-size: 20px;">软件&工具</a>
+      <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-mybatis/" style="font-size: 10px;">spring mybatis</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/烘焙/" style="font-size: 10px;">烘焙</a> <a href="/tags/软件-工具/" style="font-size: 20px;">软件&工具</a>
     </div>
   </div>
 
@@ -188,7 +199,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a></li></ul>
     </div>
   </div>
 
@@ -201,6 +212,14 @@
       <ul>
         
           <li>
+            <a href="/2016/09/02/sql-语句/">sql 语句</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/01/spring自学系列-spring与mybatis整合/">spring自学系列 spring与mybatis整合</a>
+          </li>
+        
+          <li>
             <a href="/2016/08/28/spring自学系列-spring-boot/">spring自学系列 - spring boot</a>
           </li>
         
@@ -210,14 +229,6 @@
         
           <li>
             <a href="/2016/08/01/【烘焙】黄油曲奇/">【烘焙】黄油曲奇</a>
-          </li>
-        
-          <li>
-            <a href="/2016/07/27/windows-环境下搭建jekyll/">windows 环境下搭建jekyll</a>
-          </li>
-        
-          <li>
-            <a href="/2015/06/14/Micblog-静态博客系统/">Micblog 静态博客系统</a>
           </li>
         
       </ul>
