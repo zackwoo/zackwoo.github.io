@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="无语">
 <meta property="og:description" content="项目日常痛点 新人接手项目不知从何下手 项目长期迭代，代码缺少维护导致健壮性下降 项目中老人离职，导致无人熟悉模块逻辑不敢轻易修改代码往往只能重写 代码注释混乱 代码编写缺少设计 文档分散缺乏整理  解决方案 采用高覆盖率的单元测试来保证项目代码的健壮性    采用独立系统追踪管理项目代码的注解版本更新（持续集成保持最新文档）  Java 单元测试要求 不对数据库访问逻辑进行测试（采用MOCK）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-22T08:18:31.512Z">
+<meta property="og:updated_time" content="2018-02-28T10:14:58.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="项目代码管理流程设想">
 <meta name="twitter:description" content="项目日常痛点 新人接手项目不知从何下手 项目长期迭代，代码缺少维护导致健壮性下降 项目中老人离职，导致无人熟悉模块逻辑不敢轻易修改代码往往只能重写 代码注释混乱 代码编写缺少设计 文档分散缺乏整理  解决方案 采用高覆盖率的单元测试来保证项目代码的健壮性    采用独立系统追踪管理项目代码的注解版本更新（持续集成保持最新文档）  Java 单元测试要求 不对数据库访问逻辑进行测试（采用MOCK）">
@@ -336,7 +336,21 @@
 </ol>
 <h2 id="Java-单元测试要求"><a href="#Java-单元测试要求" class="headerlink" title="Java 单元测试要求"></a>Java 单元测试要求</h2><ol>
 <li>不对数据库访问逻辑进行测试（采用MOCK）</li>
-<li>不对外部接口进行测试（采用MOCK）</li>
+<li>不对外部接口进行测试（采用MOCK）  </li>
+</ol>
+<h2 id="模板测试用例"><a href="#模板测试用例" class="headerlink" title="模板测试用例  "></a>模板测试用例  </h2><ol>
+<li><strong>远程接口调用测试</strong><ol>
+<li>接口返回false</li>
+<li>接口返回空数据</li>
+<li>接口返回小于一页数据</li>
+<li>接口返回大于一页数据</li>
+</ol>
+</li>
+<li><strong>数据访问层测试</strong><ol>
+<li>返回空数据</li>
+<li>返回集合</li>
+</ol>
+</li>
 </ol>
 
       
@@ -512,7 +526,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目日常痛点"><span class="nav-number">1.</span> <span class="nav-text">项目日常痛点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-单元测试要求"><span class="nav-number">3.</span> <span class="nav-text">Java 单元测试要求</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#项目日常痛点"><span class="nav-number">1.</span> <span class="nav-text">项目日常痛点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-单元测试要求"><span class="nav-number">3.</span> <span class="nav-text">Java 单元测试要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板测试用例"><span class="nav-number">4.</span> <span class="nav-text">模板测试用例  </span></a></li></ol></div>
             
 
           </div>
